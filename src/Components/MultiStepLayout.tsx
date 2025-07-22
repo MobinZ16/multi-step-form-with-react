@@ -12,7 +12,7 @@ const MultiStepLayout: React.FC<MultiStepLayoutProps> = ({ currentStep, children
       <div className="bg-white rounded-xl shadow-lg flex flex-col md:flex-row w-full max-w-4xl h-full md:h-[600px] overflow-hidden">
         {/* Sidebar */}
         <div className="relative md:w-1/3 p-6 md:p-8 bg-cover bg-no-repeat bg-center rounded-t-xl md:rounded-l-xl md:rounded-t-none"
-             style={{ backgroundImage: "url('/src/assets/images/bg-sidebar-desktop')" }}> {/* مسیر بک‌گراند رو بعداً تنظیم می‌کنیم */}
+             style={{ backgroundImage: "url('/src/assets/images/bg-sidebar-desktop.svg')" }}> {/* مسیر بک‌گراند رو بعداً تنظیم می‌کنیم */}
           <Sidebar currentStep={currentStep} />
         </div>
 
