@@ -17,9 +17,11 @@ const Step3: React.FC<Step3Props> = ({
     onNext,
     onGoBack,
 }) => {
-    function handleSubmit(event: FormEvent<HTMLFormElement>): void {
-        throw new Error("Function not implemented.");
-    }
+    // src/components/Step3Addons.tsx (تابع handleSubmit)
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onNext(); // نیازی به اعتبارسنجی نیست، انتخاب افزودنی اختیاری است
+  };
 
     return (
     <form onSubmit={handleSubmit} className="h-full flex flex-col">

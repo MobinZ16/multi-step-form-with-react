@@ -1,4 +1,5 @@
-import React, { type FormEvent } from "react";
+// src/components/Step2.tsx
+import React, { type FormEvent } from "react"; // FormEvent رو وارد کردید، عالیه
 import type { PlanType, BillingCycle } from "../types";
 import { plans } from "../data";
 
@@ -15,23 +16,37 @@ const PlanIcons: Record<PlanType, string> = {
 interface Step2Props {
     selectedPlan: PlanType | null;
     billingCycle: BillingCycle;
+    // شما دو prop برای انتخاب طرح دارید: onPlanSelect و onSelectPlan.
+    // بهتره یکی از اون‌ها رو نگه دارید تا گیج کننده نباشه.
+    // در کد App.tsx قبلی من از onSelectPlan استفاده کرده بودم.
+    // اگر می‌خواهید نامش onPlanSelect باشه، باید در App.tsx هم اون رو تغییر بدید.
+    // فعلاً فرض می‌کنم onSelectPlan رو حذف کردید و فقط onPlanSelect رو دارید.
     onPlanSelect: (plan: PlanType) => void;
+    // onSelectPlan: (plan: PlanType) => void; // این رو حذف کنید
     onToggleBillingCycle: (cycle: BillingCycle) => void;
-    onNext: () => void;
+    onNext: () => void; // این تابع برای رفتن به مرحله بعدی
     onGoBack: () => void;
 }
 
 const Step2: React.FC<Step2Props> = ({
     selectedPlan,
     billingCycle,
-    onPlanSelect,
+    onPlanSelect, // نام prop اینجا
     onToggleBillingCycle,
     onNext,
     onGoBack,
 }) => {
-    function handleSubmit(event: FormEvent<HTMLFormElement>): void {
-        throw new Error("Function not implemented.");
-    }
+    // اصلاح تابع handleSubmit
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault(); // از رفتار پیش‌فرض فرم (refresh صفحه) جلوگیری می‌کند
+
+        // اعتبارسنجی برای اطمینان از انتخاب یک طرح
+        if (selectedPlan) {
+            onNext(); // اگر طرحی انتخاب شده بود، به مرحله بعدی برو
+        } else {
+            alert('Please select a plan to continue.'); // پیام خطا به کاربر
+        }
+    };
 
      return (
     <form onSubmit={handleSubmit} className="h-full flex flex-col">
@@ -93,14 +108,14 @@ const Step2: React.FC<Step2Props> = ({
       {/* Navigation Buttons */}
       <div className="flex justify-between mt-auto pt-8">
         <button
-          type="button"
+          type="button" // Type submit نیست، چون در Step1 و Step2 خودشان دکمه submit دارند
           onClick={onGoBack}
           className="px-6 py-3 text-gray-500 rounded-md hover:text-blue-900 transition-colors"
         >
           Go Back
         </button>
         <button
-          type="submit"
+          type="submit" // این دکمه submit فرم است
           className="px-6 py-3 bg-blue-900 text-white rounded-md hover:bg-blue-800 transition-colors"
         >
           Next Step
@@ -110,4 +125,4 @@ const Step2: React.FC<Step2Props> = ({
   );
 };
 
-export default Step2;
+export default Step2; // اگر نام کامپوننت را به Step2 تغییر دادید
