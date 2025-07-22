@@ -8,5 +8,6 @@ export default {
   theme: {
     extend: {}, // اینجا می‌توانید تم سفارشی خود را اضافه کنید (مثل رنگ‌ها، فونت‌ها)
   },
-  plugins: [],
+  plugins: [  
+    require('@tailwindcss/forms'),],
 }
