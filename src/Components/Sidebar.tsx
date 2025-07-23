@@ -1,5 +1,4 @@
 import React from "react";
-import SidebarBG from "../assets/images/bg-sidebar-desktop.svg";
 
 interface SidebarProps {
   currentStep: number;
