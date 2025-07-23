@@ -11,6 +11,12 @@ interface Step1Props {
 const Step1: React.FC<Step1Props> = ({ personalInfo, onUpdate, onNext }) => {
   const [errors, setErrors] = useState<PersonalInfoErrors>({});
 
+  const isValidEmail = (email: string): boolean => {
+    // Regex پیشرفته‌تر برای اعتبارسنجی ایمیل
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/; // حداقل دو کاراکتر بعد از نقطه
+    return emailRegex.test(email);
+};
+
   // تابع اعتبارسنجی
   const validate = () => {
     let newErrors: PersonalInfoErrors = {};
@@ -19,7 +25,7 @@ const Step1: React.FC<Step1Props> = ({ personalInfo, onUpdate, onNext }) => {
     }
     if (!personalInfo.email.trim()) {
       newErrors.email = 'This field is required';
-    } else if (!/\S+@\S+\.\S+/.test(personalInfo.email)) {
+    } else if (!isValidEmail(personalInfo.email)) {
       newErrors.email = 'Invalid email address';
     }
     if (!personalInfo.phone.trim()) {
@@ -89,7 +95,7 @@ const Step1: React.FC<Step1Props> = ({ personalInfo, onUpdate, onNext }) => {
             )}
           </div>
           <input
-            type="email"
+            type="text"
             id="email"
             name="email"
             placeholder="e.g. stephenking@lorem.com"
